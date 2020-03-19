@@ -4,8 +4,6 @@ library('dplyr')
 
 #read the data
 train <- read.csv('data/train.csv', stringsAsFactors = F)
-train$Fsize <- train$SibSp + train$Parch + 1
-train$Embarked[c(62, 830)] <- 'C'
 train$Age<-as.numeric(as.character(train$Age))
 train$Age[is.na(train$Age)] = median(train$Age, na.rm=TRUE)
 train$Age <- as.integer(train$Age)
@@ -16,7 +14,6 @@ train$Survived[train$Survived == 1] <- 'Yes'
 embark_plot <- function(n1,n2){
   n_train <- train
   n_train$Age <- as.integer(n_train$Age)
-  n_train$Fsize <- n_train$SibSp + n_train$Parch + 1
   ggplot(data = n_train %>% filter(n_train$Age > n1 & n_train$Age < n2),
          aes(x = factor(Embarked), fill = factor(Survived))) +
     geom_bar(stat='count') +
@@ -30,9 +27,9 @@ embark_plot <- function(n1,n2){
 fsize_plot <-  function(n1,n2){
   n_train <- train
   n_train$Fare <- as.integer(n_train$Fare)
-  n_train$Fsize <- n_train$SibSp + n_train$Parch + 1
+  n_train$FamSize <- n_train$SibSp + n_train$Parch + 1
   ggplot(data = n_train %>% filter(n_train$Age > n1 & n_train$Age < n2),
-         aes(x = factor(Fsize), fill = factor(Survived))) +
+         aes(x = factor(FamSize), fill = factor(Survived))) +
     geom_bar(stat='count') +
     theme_few() +
     labs(x = "Family Size", fill = "Survived")
@@ -42,7 +39,6 @@ fsize_plot <-  function(n1,n2){
 gender_plot <-  function( n1,n2){
   n_train <- train
   n_train$Fare <- as.integer(n_train$Fare)
-  n_train$Fsize <- n_train$SibSp + n_train$Parch + 1
   ggplot(data = n_train %>% filter(n_train$Age > n1 & n_train$Age < n2),
          aes(x = factor(Sex), fill = factor(Survived))) +
     geom_bar(stat='count') +
@@ -54,7 +50,6 @@ gender_plot <-  function( n1,n2){
 pclass_plot <-  function( n1,n2){
   n_train <- train
   n_train$Fare <- as.integer(n_train$Fare)
-  n_train$Fsize <- n_train$SibSp + n_train$Parch + 1
   ggplot(data = n_train %>% filter(n_train$Age > n1 & n_train$Age < n2),
          aes(x = factor(Pclass), fill = factor(Survived))) +
     geom_bar(stat='count') +
