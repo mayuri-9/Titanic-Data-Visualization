@@ -10,8 +10,7 @@ titledata <- tags$label(tags$img(src = "titanic.jpg", height = '60', width = '65
                         tags$b(" Titanic Data Visualization"))
 
 #user interface
-ui <- fluidPage(
-  
+ui <- fluidPage(  
   tags$head(
     tags$style(HTML("
                     @import url('my-font.url');
@@ -46,7 +45,7 @@ ui <- fluidPage(
     background-color: midnightblue;",
            
            column(6,offset = 3,
-                  titlePanel(titledata)),
+                  titlePanel(titledata, windowTitle = "Titanic Data Visualization")),
            column(6)
   ),
   
@@ -56,9 +55,7 @@ ui <- fluidPage(
   
   fluidRow(
     column(12,
-           tabBox(
-             
-             # The id lets us use input$tabset1 on the server to find the current tab
+           tabBox(                        
              id = "tabset1",
              tabPanel("Home", 
                      sidebarLayout(
@@ -74,21 +71,18 @@ ui <- fluidPage(
                           
                           sliderInput("range", 
                                       label = "Age in years:",
-                                      min = 0, max = 80, value = c(0, 80))
-                          ,
+                                      min = 0, max = 80, value = c(0, 80)),
                         
                           submitButton("Run Analysis", icon("play"))),
                         
-                        mainPanel(plotOutput("graph"))
-                      
+                        mainPanel(plotOutput("graph"))                      
              )),
-            # tabPanel("Mode 2", "Tab content 2",tags$style(HTML('.content-wrapper {background-color:blue;}'))),
+          
              tabPanel("Information", h3("The sinking of the Titanic is one of the most infamous shipwrecks in history.
 
                       On April 15, 1912, during her maiden voyage, the widely considered “unsinkable” RMS Titanic sank after colliding with an iceberg. Unfortunately, there weren’t enough lifeboats for everyone onboard, resulting in the death of 1502 out of 2224 passengers and crew.
                       
-                      While there was some element of luck involved in surviving, it seems some groups of people were more likely to survive than others."))
-    
+                      While there was some element of luck involved in surviving, it seems some groups of people were more likely to survive than others."))    
   
 ))))
 
